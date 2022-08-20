@@ -33,7 +33,7 @@ if (isset($_POST['raschet']) && !isset($_POST['reset'])) {
 
         // Строки вывода результата
 
-                 $result="Ваша зарплата".strval($result);
+                 $result="Ваша зарплата ".strval($result);
                  $result_tax='Зарплата после уплаты налога '.strval($result_tax);
         
             } else {
@@ -44,6 +44,9 @@ if (isset($_POST['raschet']) && !isset($_POST['reset'])) {
                 $result_tax='';
             }
         } else {
+
+// Если была нажата кнопка сбросить, то выводится просто форма, а строки вывода очищаются
+
             $result="";
             $result_tax="";
         }
