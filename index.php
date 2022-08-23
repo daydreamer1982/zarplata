@@ -11,7 +11,7 @@ require 'render.php';
 <head>
     <title><?=$title?></title>
     <?=$meta?>
-    <?=$style?>
+    <?=$body_style?>
 </head>
 <body>
     <?=$body?>
