@@ -8,7 +8,7 @@
         include 'io.php';
         include 'func.php';
 
-    echo(show_content($style, $tarriffs));
+    echo(show_content($style, $tariffs));
     ?>
     <a href='index.php'>На главную</a>
 </body>
