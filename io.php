@@ -1,13 +1,15 @@
 <?php 
 /* Всё, что связано со вводом и выводом данных */
 
+const TARIFF = '_tariff';
+
 $body_style = '<style type="text/css">
     body {
         text-align: center;
     }                
 </style>';
 $title = 'Расчёт зарплаты';
-$meta = '<meta charset="utf-8">';
+$meta = '<meta charset="utf-8"><meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate"/><meta http-equiv="Pragma" content="no-cache"/><meta http-equiv="Expires" content="0"/>';
 $style = '';
 
 
@@ -52,3 +54,21 @@ $items_made = [
 ];
 
 $koeff = 42;
+$user = 'vanya';
+
+// Открываем файл для записи в поддиректории users/ если нет, то создаём
+function read_tariffs(string $user) {
+    $filename = $_SERVER['DOCUMENT_ROOT']."users/".$user.TARIFF;
+    $file = fopen($filename, "a+");
+    $output = fgetcsv($file);
+    fclose($file);
+    return $output;
+}
+// Записываем расценки в csv файл
+function write_tariffs(string $user, array $tariffs) {
+    $filename = $_SERVER['DOCUMENT_ROOT']."users/".$user.TARIFF;
+    $file = fopen($filename, "a+");
+    $output = fputcsv($file, $tariffs);
+    fclose($file);
+    return $output;    
+}

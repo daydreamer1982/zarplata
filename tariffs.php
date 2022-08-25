@@ -11,4 +11,5 @@
     echo(show_content($style, $tariffs));
     ?>
     <a href='index.php'>На главную</a>
+    <a href='edit.php?edit=tariffs'>Редактировать</a>
 </body>

@@ -15,4 +15,5 @@ require 'render.php';
 </head>
 <body>
     <?=$body?>
+    <a href="edit.php?edit=work">Редактировать часы и выполненные задания</a>
 </body>
