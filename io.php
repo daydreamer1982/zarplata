@@ -20,7 +20,7 @@ $style = '';
     'На руки без аванса' => 33643
 ];
 */
-$tarriffs = [
+$tariffs = [
     'Шнек 6м' => 1280,
     'Шнек 7м' => 1696,
     'Шнек Полесье' => 1750,
@@ -39,7 +39,7 @@ $tax = 13;
 
 $page_top = '<h1>'.$title.'</h1></br></br>';
 
-$page_bottom = '</br><a href="prepayment.php">Расценки</a>';
+$page_bottom = '</br><a href="tariffs.php">Расценки</a>';
 
 $prepayment_percent = FALSE;
 

@@ -27,14 +27,14 @@ function show_content(string $id_style,array $content) {
 количество отработанных дней, получая среднюю зарплату за день и умножаем на количество оставшихся 
 дней, потом прибавляем заработанное чистыми, чтобы увидеть, сколько примерно выходит за весь месяц.
  */
-function calculate_salary(int $days_worked, int $days_left, int $tax, int $bonus, int $koeff, array $items_made, bool $prepayment_percent, int $prepayment, array $tarriffs) {
+function calculate_salary(int $days_worked, int $days_left, int $tax, int $bonus, int $koeff, array $items_made, bool $prepayment_percent, int $prepayment, array $tariffs) {
 // Инициализация переменных
     $result = [];
     $temp = 0;
 // Перемножение количества готовых деталей на расценки и получение суммы грязными
-    foreach ($tarriffs as $item => $value) {
+    foreach ($trriffs as $item => $value) {
         if (array_key_exists($item, $items_made)){
-            $temp = $temp + $tarriffs[$item] * $items_made[$item];
+            $temp = $temp + $tariffs[$item] * $items_made[$item];
 //            echo($temp.' '.$item.' '.$value.' '.$items_made[$item].",");
         }
     }
