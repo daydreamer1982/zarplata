@@ -32,7 +32,7 @@ function calculate_salary(int $days_worked, int $days_left, int $tax, int $bonus
     $result = [];
     $temp = 0;
 // Перемножение количества готовых деталей на расценки и получение суммы грязными
-    foreach ($trriffs as $item => $value) {
+    foreach ($tariffs as $item => $value) {
         if (array_key_exists($item, $items_made)){
             $temp = $temp + $tariffs[$item] * $items_made[$item];
 //            echo($temp.' '.$item.' '.$value.' '.$items_made[$item].",");
