@@ -58,17 +58,22 @@ $user = 'vanya';
 
 // Открываем файл для записи в поддиректории users/ если нет, то создаём
 function read_tariffs(string $user) {
+    $output = ['Ошибка' => 'Ошибка'];
     $filename = $_SERVER['DOCUMENT_ROOT']."users/".$user.TARIFF;
     $file = fopen($filename, "a+");
-    $output = fgetcsv($file);
-    fclose($file);
+    if (!$file) {
+        $output = fgetcsv($file);
+        fclose($file);
+    }
     return $output;
 }
 // Записываем расценки в csv файл
 function write_tariffs(string $user, array $tariffs) {
     $filename = $_SERVER['DOCUMENT_ROOT']."users/".$user.TARIFF;
     $file = fopen($filename, "a+");
-    $output = fputcsv($file, $tariffs);
-    fclose($file);
+    if (!$file) {
+        $output = fputcsv($file, $tariffs);
+        fclose($file);
+    }
     return $output;    
 }

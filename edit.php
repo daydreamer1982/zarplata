@@ -10,6 +10,11 @@ switch ($title) {
 }
 $title_head = 'Редактировать '.mb_strtolower($title);
 $edited_content = read_tariffs($user);
+if (isset($_POST['save'])) {
+    $data = [];
+    array_walk($_POST, function ($value, $key) { $data[$key] = $_POST[$key];});
+    write_tariffs($user, $data);
+}
 ?>
 
 <!DOCTYPE html>
@@ -23,6 +28,7 @@ $edited_content = read_tariffs($user);
 <?=$edited_content?>
 <form name="edit" action="" method="post">
     <p><input type="text", name="name">&nbsp;<input type="number" name="tariff">
+    <p><input type="submit" name="save" value="Сохранить">
 </form>
 
 <?php var_dump($edited_content); ?>
