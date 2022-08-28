@@ -9,12 +9,15 @@ switch ($title) {
     default : $title ='';
 }
 $title_head = 'Редактировать '.mb_strtolower($title);
-//$edited_content = read_tariffs($user);
-if (isset($_POST['save'])) {
-    $data = [];
-    array_walk($_POST, function ($value, $key) { $data[$key] = $_POST[$key];});
-//    write_tariffs($user, $data);
+$tariffs_now = read_tariffs($dept);
+$edited_content = '';
+foreach ($tariffs_now as $name => $value) {
+    foreach ($value as $item => $count) {
+        $edited_content .=  '<span>'.$count.' </span>';
+    }
+    $edited_content .= '</br>';
 }
+$title = $title.'</br></br>';
 ?>
 
 <!DOCTYPE html>
@@ -25,13 +28,16 @@ if (isset($_POST['save'])) {
 </head>
 <body>
 <?=$title?>
+<?=$edited_content?>
 <form name="edit" action="" method="post">
     <p><input type="text", name="name">&nbsp;<input type="number" name="tariff">
     <p><input type="submit" name="save" value="Сохранить">
 </form>
 
 <?php
-// var_dump($edited_content); 
+echo '<pre>';
+ var_dump($tariffs_now); 
+ var_dump($edited_content);
 
 ?>
 </body>

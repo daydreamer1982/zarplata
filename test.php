@@ -78,6 +78,6 @@ foreach ($result as $line) {
     print($line.'</br>');
 }
 
-$test_tariff = [':item' => 'Шнек 7м', ':tariff' => 1696, ':dept' => 1];
+//$test_tariff = [':item' => 'Шнек 7м', ':tariff' => 1696, ':dept' => 1];
 
-echo(write_tariffs($test_tariff));
+//echo(write_tariffs($test_tariff));

@@ -5,6 +5,11 @@ const TARIFF = '_tariff';
 const DB_USER = 'dd1982';
 const DB_PASS = 'dd1982';
 const DB_NAME = 'testio';
+const DB_OPT = [
+    PDO::ATTR_ERRMODE            => PDO::ERRMODE_EXCEPTION,
+    PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_ASSOC,
+    PDO::ATTR_EMULATE_PREPARES   => false,];
+
 
 $body_style = '<style type="text/css">
     body {
@@ -57,23 +62,24 @@ $items_made = [
 ];
 
 $koeff = 42;
-$user = 'vanya';
+$dept = 2;
 
 // Функция для чтения расценок из базы
 function read_tariffs(int $dept) {
 // инициализируем выходной массив
     $output = [];
-// Переводим аргумент из int в массив с одним элементом, чтобы не вызвать ошибку PDO
-    $dept = array($dept);
 // Подключаемся к базе данных
-    $db = new PDO('mysql:host=localhost;dbname='.DB_NAME, DB_USER, DB_PASS);
+
+    $db = new PDO('mysql:host=localhost;dbname='.DB_NAME, DB_USER, DB_PASS,DB_OPT);
 // Подготавливаем запрос, используя неименованный плейсхолдер
-    $query = $db->prepare("SELECT * FROM `tariffs` WHERE `dept` = ?");
+    $query = $db->prepare("SELECT * FROM `tariffs` WHERE `dept` = :dept");
 // Отправляем подготовленный запрос на исполнение используя в качестве аргумента
 // массив
-    $query->execute($dept);
+    $query->execute(array($dept));
 // Получаем результат из базы 
-    $output = $query->fetch();
+    foreach ($query as $row) {
+        array_push($output, ['item' => $row['item']],['tariff' =>$row['tariff']]);
+    }
     return $output;
 }
 
