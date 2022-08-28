@@ -2,6 +2,9 @@
 /* Всё, что связано со вводом и выводом данных */
 
 const TARIFF = '_tariff';
+const DB_USER = 'dd1982';
+const DB_PASS = 'dd1982';
+const DB_NAME = 'testio';
 
 $body_style = '<style type="text/css">
     body {
@@ -56,24 +59,31 @@ $items_made = [
 $koeff = 42;
 $user = 'vanya';
 
-// Открываем файл для записи в поддиректории users/ если нет, то создаём
-function read_tariffs(string $user) {
-    $output = ['Ошибка' => 'Ошибка'];
-    $filename = $_SERVER['DOCUMENT_ROOT']."users/".$user.TARIFF;
-    $file = fopen($filename, "a+");
-    if (!$file) {
-        $output = fgetcsv($file);
-        fclose($file);
-    }
+// Функция для чтения расценок из базы
+function read_tariffs(int $dept) {
+// инициализируем выходной массив
+    $output = [];
+// Переводим аргумент из int в массив с одним элементом, чтобы не вызвать ошибку PDO
+    $dept = array($dept);
+// Подключаемся к базе данных
+    $db = new PDO('mysql:host=localhost;dbname='.DB_NAME, DB_USER, DB_PASS);
+// Подготавливаем запрос, используя неименованный плейсхолдер
+    $query = $db->prepare("SELECT * FROM `tariffs` WHERE `dept` = ?");
+// Отправляем подготовленный запрос на исполнение используя в качестве аргумента
+// массив
+    $query->execute($dept);
+// Получаем результат из базы 
+    $output = $query->fetch();
     return $output;
 }
-// Записываем расценки в csv файл
-function write_tariffs(string $user, array $tariffs) {
-    $filename = $_SERVER['DOCUMENT_ROOT']."users/".$user.TARIFF;
-    $file = fopen($filename, "a+");
-    if (!$file) {
-        $output = fputcsv($file, $tariffs);
-        fclose($file);
-    }
-    return $output;    
+
+// Функция для записи расценок в базу
+function write_tariffs(array $tariff) {
+// Подключаемся к базе данных
+    $db = new PDO('mysql:host=localhost;dbname='.DB_NAME, DB_USER, DB_PASS);
+// Подготавливаем запрос, используя неименованный плейсхолдер
+    $query = $db->prepare("INSERT INTO `tariffs` (`item`, `tariff`, `dept`) VALUES (:item, :tariff, :dept)");
+// Отправляем подготовленный запрос на исполнение используя в качестве аргумента
+// массив
+    $query->execute($tariff);
 }
