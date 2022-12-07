@@ -11,11 +11,10 @@ require 'render.php';
 <head>
     <title><?=$title?></title>
     <?=$meta?>
-    <?=$body_style?>
+    <?=$style?>
 </head>
 <body>
     <?=$body?>
-    <a href="edit.php?edit=work">Редактировать часы и выполненные задания</a></br>
 <?php 
 // system('id'); 
 ?>
